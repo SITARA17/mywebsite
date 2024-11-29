@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.lingoland.first" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Lingoland</name>
+    <description>Interactive language learning application.</description>
+    <author email="support@lingoland.com" href="https://lingoland.com">
+        Lingoland Development Team
+    </author>
+
+    <!-- Splash Screen -->
+    <preference name="SplashScreenDelay" value="3000" />
+    <preference name="AutoHideSplashScreen" value="true" />
+
+    <!-- StatusBar -->
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+
+    <!-- Permissions -->
+    <preference name="permissions" value="none" />
+    
+    <!-- Plugins -->
+    <plugin name="cordova-plugin-statusbar" />
+    <plugin name="cordova-plugin-device" />
+    <plugin name="cordova-plugin-splashscreen" />
+
+    <!-- Content -->
+    <content src="login.html" />
+
+    <!-- Navigation and Security -->
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-navigation href="*" />
+    <access origin="*" />
+
+    <!-- Android Platform Settings -->
+    <platform name="android">
+        <!-- Icons -->
+        <icon density="ldpi" src="resources/android/icon/logo.png" />
+        <icon density="mdpi" src="resources/android/icon/logo.png" />
+        <icon density="hdpi" src="resources/android/icon/logo.png" />
+        <icon density="xhdpi" src="resources/android/icon/logo.png" />
+        <icon density="xxhdpi" src="resources/android/icon/logo.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/logo.png" />
+        
+        <!-- Splash Screens -->
+        <splash density="land-ldpi" src="resources/android/splash/logo.png" />
+        <splash density="land-mdpi" src="resources/android/splash/logo.png" />
+        <splash density="land-hdpi" src="resources/android/splash/logo.png" />
+        <splash density="land-xhdpi" src="resources/android/splash/logo.png" />
+        <splash density="land-xxhdpi" src="resources/android/splash/logo.png" />
+        <splash density="land-xxxhdpi" src="resources/android/splash/logo.png" />
+        <splash density="port-ldpi" src="resources/android/splash/logo.png" />
+        <splash density="port-mdpi" src="resources/android/splash/logo.png" />
+        <splash density="port-hdpi" src="resources/android/splash/logo.png" />
+        <splash density="port-xhdpi" src="resources/android/splash/logo.png" />
+        <splash density="port-xxhdpi" src="resources/android/splash/logo.png" />
+        <splash density="port-xxxhdpi" src="resources/android/splash/logo.png" />
+    </platform>
+</widget>

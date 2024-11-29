@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    <h1>Login Page</h1>
+    <form id="loginForm">
+        <input type="email" id="loginEmail" placeholder="Email" required />
+        <input type="password" id="loginPassword" placeholder="Password" required />
+        <button type="submit">Log In</button>
+    </form>
+    
+    <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+
+    <script type="module">
+        import { login } from './firebase.js';
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            login(email, password)
+                .then(userCredential => {
+                    console.log('User logged in:', userCredential.user);
+                    alert('Login successful!');
+                    window.location.href = "welcome.html"; // Redirect to the welcome page
+                })
+                .catch(error => {
+                    console.error('Error logging in:', error.message);
+                    alert(`Login failed: ${error.message}`);
+                });
+        });
+    </script>
+</body>
+</html>

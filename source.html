@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como você soube do Duolingo?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .option {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: white;
+            color: #4CAF50;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .option:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button {
+            margin-top: 30px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>How did you find out about lingoland?</h1>
+    </header>
+    <main>
+        <ul>
+            <li><div class="option">TikTok</div></li>
+            <li><div class="option">Facebook or Instagram</div></li>
+            <li><div class="option">X (Twitter)</div></li>
+            <li><div class="option">YouTube</div></li>
+            <li><div class="option">Busca do Google</div></li>
+            <li><div class="option">TV</div></li>
+            <li><div class="option">Amigos ou família</div></li>
+            <li><div class="option">Outros</div></li>
+        </ul>
+        <button onclick="navigateToPurposePage()">Continuar</button>
+    </main>
+
+    <script>
+        function navigateToPurposePage() {
+            window.location.href = "purpose.html"; // Redirects to the purpose page
+        }
+    </script>
+</body>
+</html>

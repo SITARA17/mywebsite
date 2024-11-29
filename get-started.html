@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Language Selection</title>
+    <link rel="stylesheet" href="css/get-started.css">
+</head>
+<body>
+    <header>
+        <div>
+            <h1 id="siteTitle">I Want to Learn...</h1>
+        </div>
+        <div class="dropdown-container">
+            <label for="siteLanguage">Idioma do Site:</label>
+            <select id="siteLanguage" onchange="changeSiteLanguage()">
+                <option value="en" selected>English</option>
+                <option value="pt">Português</option>
+                <option value="fr">Français</option>
+                <option value="de">Deutsch</option>
+                <option value="hi">हिन्दी</option>
+                <option value="ur">اردو</option>
+            </select>
+        </div>
+    </header>
+    <!-- Language Cards Container -->
+    <div id="languageContainer" class="language-container">
+        <div class="language-card" data-lang="en" onclick="redirectToLanguage('en')">
+            <img src="img/eng.jpeg" alt="English Flag" class="language-flag">
+            <h3>English</h3>
+        </div>
+        <div class="language-card" data-lang="pt" onclick="redirectToLanguage('pt')">
+            <img src="img/pt.jpeg" alt="Portuguese Flag" class="language-flag">
+            <h3>Português</h3>
+        </div>
+        <div class="language-card" data-lang="hi" onclick="redirectToLanguage('hi')">
+            <img src="img/ind.webp" alt="Hindi Flag" class="language-flag">
+            <h3>हिन्दी</h3>
+        </div>
+        <div class="language-card" data-lang="ur" onclick="redirectToLanguage('ur')">
+            <img src="img/pk.jpeg" alt="Urdu Flag" class="language-flag">
+            <h3>اردو</h3>
+        </div>
+        <div class="language-card" data-lang="de" onclick="redirectToLanguage('de')">
+            <img src="img/dt.png" alt="German Flag" class="language-flag">
+            <h3>Deutsch</h3>
+        </div>
+        <div class="language-card" data-lang="fr" onclick="redirectToLanguage('fr')">
+            <img src="img/FR.webp" alt="French Flag" class="language-flag">
+            <h3>Français</h3>
+        </div>
+    </div>
+
+    <script src="changeLanguage.js"></script>
+
+    <script>
+        // Function to redirect to the appropriate language page
+        function redirectToLanguage(language) {
+            // Redirect to the appropriate language-specific page
+            window.location.href = `hello.${language}.html`;  // Example: hello.en.html for English
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How much English do you know?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            margin-top: 50px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin: 10px 0;
+        }
+
+        .option {
+            display: inline-block;
+            padding: 10px 20px;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            background-color: white;
+            color: #4CAF50;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .option.selected {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .option:hover {
+            background-color: #45a049;
+            color: white;
+        }
+
+        button {
+            margin-top: 30px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>How much English do you know?</h1>
+    </header>
+    <main>
+        <ul>
+            <li><div class="option" onclick="selectLevel('beginner')">I don't know any English</div></li>
+            <li><div class="option" onclick="selectLevel('basic')">I know some basic words</div></li>
+            <li><div class="option" onclick="selectLevel('intermediate')">I can have simple conversations</div></li>
+            <li><div class="option" onclick="selectLevel('advanced')">I can talk about various topics</div></li>
+            <li><div class="option" onclick="selectLevel('expert')">I can speak about most topics in detail</div></li>
+        </ul>
+        <button onclick="continueToLevel()">Continue</button>
+    </main>
+
+    <script>
+        let selectedLevel = '';
+
+        // Function to handle level selection
+        function selectLevel(level) {
+            // Remove selected class from all options
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => option.classList.remove('selected'));
+
+            // Add selected class to the clicked option
+            const selectedOption = document.querySelector(`.option[onclick="selectLevel('${level}')"]`);
+            selectedOption.classList.add('selected');
+
+            // Store the selected level
+            selectedLevel = level;
+        }
+
+        // Redirect the user to the appropriate page based on their selection
+        function redirectTo(level) {
+            switch (level) {
+                case 'beginner':
+                    window.location.href = 'beginner.html'; // Replace with beginner page URL
+                    break;
+                case 'basic':
+                    window.location.href = 'basic.html'; // Replace with basic page URL
+                    break;
+                case 'intermediate':
+                    window.location.href = 'intermediate.html'; // Replace with intermediate page URL
+                    break;
+                case 'advanced':
+                    window.location.href = 'advanced.html'; // Replace with advanced page URL
+                    break;
+                case 'expert':
+                    window.location.href = 'expert.html'; // Replace with expert page URL
+                    break;
+            }
+        }
+
+        // Continue button logic to redirect to the selected level page
+        function continueToLevel() {
+            if (selectedLevel === '') {
+                alert('Please select a proficiency level first!');
+                return;
+            }
+            // Call redirectTo function with the selected level
+            redirectTo(selectedLevel);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .quiz-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+            position: relative;
+        }
+
+        .question {
+            font-size: 24px;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            background-color: #F4F7F8;
+            padding: 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 18px;
+        }
+
+        .option:hover {
+            background-color: #E6EBF1;
+        }
+
+        .feedback {
+            display: none;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .feedback.correct {
+            color: green;
+        }
+
+        .feedback.incorrect {
+            color: red;
+        }
+
+        .continue-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+        }
+
+        .continue-btn:hover {
+            background-color: #45a049;
+        }
+
+        .explanation {
+            font-size: 16px;
+            color: #555;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .audio-btn {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none;
+        }
+
+        .audio-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <!-- Question Section -->
+    <div class="question" id="question"></div>
+
+    <!-- Options Section -->
+    <div class="options" id="options"></div>
+
+    <!-- Audio Playback Button -->
+    <button class="audio-btn" id="audio-btn" onclick="playAudio()">Tocar Áudio (Play Audio)</button>
+
+    <!-- Feedback Section -->
+    <div class="feedback" id="feedback"></div>
+
+    <!-- Explanation Section -->
+    <div class="explanation" id="explanation"></div>
+
+    <!-- Continue Button -->
+    <button class="continue-btn" id="continue-btn" onclick="nextQuestion()">Continuar (Continue)</button>
+</div>
+
+<script>
+    let currentQuestionIndex = 0;
+
+    const questions = [
+        // 20 Questions
+        { type: 'multiple-choice', question: "Qual é o 🧒?", options: ['👧 Girl', '🧒 Boy', '👩 Woman'], correctAnswer: 1, explanation: "🧒 representa 'a boy' em inglês." },
+        { type: 'multiple-choice', question: "Qual é a 👧?", options: ['👩 Woman', '👧 Girl', '👦 Boy'], correctAnswer: 1, explanation: "👧 representa 'a girl' em inglês." },
+        { type: 'listening', question: "O que você escuta? 🎧", options: ['👦 Boy', '👧 Girl', '👩 Woman', '👨 Man'], correctAnswer: 0, explanation: "O áudio diz 'a boy'.", audio: "boy_voice.mp3" },
+        { type: 'writing', question: "Como você escreve o número: 3️⃣ em inglês?", correctAnswer: "three", explanation: "3️⃣ é escrito como 'three'." },
+        { type: 'multiple-choice', question: "Qual é o homem? 👨", options: ['👩 Woman', '👧 Girl', '👨 Man'], correctAnswer: 2, explanation: "👨 representa 'a man' em inglês." },
+        // Add more questions here...
+    ];
+
+    function loadQuestion() {
+        const currentQuestion = questions[currentQuestionIndex];
+
+        document.getElementById("question").innerText = currentQuestion.question;
+
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = '';
+
+        if (currentQuestion.type === 'multiple-choice' || currentQuestion.type === 'identification') {
+            currentQuestion.options.forEach((option, index) => {
+                const button = document.createElement("div");
+                button.className = "option";
+                button.innerText = option;
+                button.onclick = () => checkAnswer(index);
+                optionsContainer.appendChild(button);
+            });
+        } else if (currentQuestion.type === 'writing') {
+            optionsContainer.innerHTML = `
+                <input id="writing-input" type="text" placeholder="Escreva sua resposta aqui (Write your answer here)">
+                <button class="audio-btn" onclick="checkWritingAnswer()">Enviar (Submit)</button>
+            `;
+        }
+
+        if (currentQuestion.type === 'listening') {
+            document.getElementById("audio-btn").style.display = 'inline-block';
+        } else {
+            document.getElementById("audio-btn").style.display = 'none';
+        }
+
+        document.getElementById("feedback").style.display = 'none';
+        document.getElementById("explanation").style.display = 'none';
+        document.getElementById("continue-btn").style.display = 'none';
+    }
+
+    function playAudio() {
+        const currentQuestion = questions[currentQuestionIndex];
+        const audio = new Audio(currentQuestion.audio);
+        audio.play();
+        document.getElementById("audio-btn").disabled = true;
+    }
+
+    function checkAnswer(selected) {
+        const currentQuestion = questions[currentQuestionIndex];
+        const feedback = document.getElementById("feedback");
+        const explanation = document.getElementById("explanation");
+
+        if (selected === currentQuestion.correctAnswer) {
+            feedback.innerText = "Muito bem!";
+            feedback.className = "feedback correct";
+        } else {
+            feedback.innerText = "Resposta incorreta!";
+            feedback.className = "feedback incorrect";
+            explanation.innerText = `Resposta correta: ${currentQuestion.options[currentQuestion.correctAnswer]} - ${currentQuestion.explanation}`;
+            explanation.style.display = 'block';
+        }
+
+        feedback.style.display = 'block';
+        document.getElementById("continue-btn").style.display = 'inline-block';
+    }
+
+    function checkWritingAnswer() {
+        const input = document.getElementById("writing-input").value.toLowerCase().trim();
+        const currentQuestion = questions[currentQuestionIndex];
+        const feedback = document.getElementById("feedback");
+        const explanation = document.getElementById("explanation");
+
+        if (input === currentQuestion.correctAnswer) {
+            feedback.innerText = "Muito bem!";
+            feedback.className = "feedback correct";
+        } else {
+            feedback.innerText = "Resposta incorreta!";
+            feedback.className = "feedback incorrect";
+            explanation.innerText = `A resposta correta é '${currentQuestion.correctAnswer}'.`;
+            explanation.style.display = 'block';
+        }
+
+        feedback.style.display = 'block';
+        document.getElementById("continue-btn").style.display = 'inline-block';
+    }
+
+    function nextQuestion() {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion();
+        } else {
+            document.getElementById("question").innerText = "Quiz completo!";
+            document.getElementById("options").innerHTML = '';
+            document.getElementById("feedback").style.display = 'none';
+            document.getElementById("continue-btn").style.display = 'none';
+        }
+    }
+
+    loadQuestion();
+</script>
+
+</body>
+</html>
